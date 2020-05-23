@@ -1,17 +1,17 @@
 export const Cards = [
     {
         id: 0,
+        listId: 1,
         text: 'Finish Homework',
-        keyList: 1
     },
     {
         id: 1,
+        listId: 1,
         text: 'Mow',
-        keyList: 1
     },
     {
         id: 2,
+        listId: 0,
         text: 'Coding dope sites',
-        keyList: 2
     }
 ]

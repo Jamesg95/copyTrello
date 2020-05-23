@@ -6,7 +6,6 @@ import TextareaAutosize from 'react-textarea-autosize'
 import { connect } from 'react-redux'
 import { addList } from '../redux/actions/ActionCreators'
 
-
 const mapDispatchtoProps = {
     addList: (title) => (addList(title))
 } 
