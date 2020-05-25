@@ -1,27 +1,14 @@
 import React, { Component } from 'react'
-import { Row, Button, CardBody } from 'reactstrap'
+import { connect } from 'react-redux'
+import { addCard } from '../redux/actions/ActionCreators'
+import { Row, Button } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import TextareaAutosize from 'react-textarea-autosize'
-import { connect } from 'react-redux'
-import { addCard } from '../redux/actions/ActionCreators'
-
-
-const mapDispatchtoProps = {
-    addCard: (text, listId) => (addCard(text, listId))
-}
-
-const mapStatetoProps = state => {
-    return {
-      list: state.cards,
-    }
-}
-
 
 class CardButton extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             isFormOpen: false,
             text: ''
@@ -34,22 +21,20 @@ class CardButton extends Component {
         })
     }
 
-    toggleForm = (e) => {
+    toggleForm = () => {
         this.setState({
             isFormOpen: !this.state.isFormOpen
         })
-        e.preventDefault()
     }
 
     handleSubmit = () => {
-        console.log(this.props)
+        this.props.addCard(this.state.text, this.props.listId)
         this.setState((prev) => {
-            this.props.addCard(prev.text, this.props.listId)
             return {
                 text: ''
             }
         })
-
+        this.toggleForm()
     }
 
     renderForm = () => {
@@ -58,7 +43,6 @@ class CardButton extends Component {
                 <TextareaAutosize 
                     placeholder='Enter title for card...' 
                     autoFocus  
-                    onBlur={this.toggleForm}
                     value={this.state.text}
                     onChange={this.handleInputChange}
                     style={{
@@ -71,7 +55,7 @@ class CardButton extends Component {
                     }}
                     />
                 <Button outline size='sm' block className='mr-3' color='success'
-                onMouseDown={this.handleSubmit}
+                onClick={this.handleSubmit}
                 >
                     Save
                     </Button>
@@ -93,7 +77,6 @@ class CardButton extends Component {
     render(){
         return this.state.isFormOpen ? this.renderForm() : this.renderAddButton()
     }
-    
 }
 
-export default connect(mapStatetoProps, mapDispatchtoProps) (CardButton);
+export default connect(null, {addCard}) (CardButton);

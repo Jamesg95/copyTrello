@@ -2,14 +2,14 @@ import * as Actions from './ActionTypes'
 
 export const addList = (title) => ({
         type: Actions.ADD_LIST,
-        payload: title,
+        title,
         listId: Math.floor(Math.random()*1000000)
 })
 
-export const addCard = (text, listId) => ({
+export const addCard = (text, listId) => {
+        return ({
         type: Actions.ADD_CARD,
-        payload: text, 
-        listId: listId,
-        randomNum: Math.floor(Math.random()*1000000)
-}) 
-
+        id: Math.floor(Math.random()*1000000),
+        text, 
+        listId,
+}) }
